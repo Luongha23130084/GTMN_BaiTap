@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+</head>
+<body>
+
+<html>
+<head>
+    
+<html lang="vi">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Kỳ Môn Học</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f0f0f0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        input[type="text"], input[type="button"] {
+            padding: 8px;
+            margin: 5px 0;
+            width: 100%;
+        }
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Đăng Ký Môn Học</h1>
+
+<input type="text" id="search" placeholder="Mã môn học..." onkeyup="searchSubject()">
+<br>
+<input type="text" id="subjectName" placeholder="Tên môn học">
+<input type="button" class="btn" value="Tìm Môn Học" onclick="addSubject()">
+
+<table id="subjectTable">
+    <thead>
+        <tr>
+            <th>Tên Môn Học</th>
+            <th>Thêm Môn Học</th>
+            <th>Xóa Môn Học</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Môn Toán Cao Câp-->
+        <!-- Môn Giao Tiếp Người Máy-->
+        <!-- Môn Toán Rời Rạc-->
+                
+
+    </tbody>
+</table>
+
+<script>
+    let subjects = [];
+
+    function addSubject() {
+        const subjectInput = document.getElementById('subjectName');
+        const subjectName = subjectInput.value.trim();
+
+        if (subjectName === '') {
+            alert('Vui lòng nhập tên môn học.');
+            return;
+        }
+
+        subjects.push(subjectName);
+        subjectInput.value = '';
+        renderSubjects();
+    }
+
+    function renderSubjects() {
+        const tbody = document.getElementById('subjectTable').getElementsByTagName('tbody')[0];
+        tbody.innerHTML = '';
+
+        subjects.forEach((subject, index) => {
+            const row = tbody.insertRow();
+            const cell1 = row.insertCell(0);
+            const cell2 = row.insertCell(1);
+
+            cell1.textContent = subject;
+            cell2.innerHTML = `<button onclick="editSubject(${index})">Sửa</button> <button onclick="deleteSubject(${index})">Xóa</button>`;
+        });
+    }
+
+    function editSubject(index) {
+        const newSubject = prompt('Nhập tên môn học mới:', subjects[index]);
+        if (newSubject) {
+            subjects[index] = newSubject;
+            renderSubjects();
+        }
+    }
+
+    function deleteSubject(index) {
+        subjects.splice(index, 1);
+        renderSubjects();
+    }
+
+    function searchSubject() {
+        const searchInput = document.getElementById('search').value.toLowerCase();
+        const tbody = document.getElementById('subjectTable').getElementsByTagName('tbody')[0];
+        const rows = tbody.getElementsByTagName('tr');
+
+        for (let i = 0; i < rows.length; i++) {
+            const cell = rows[i].getElementsByTagName('td')[0];
+            if (cell) {
+                const textValue = cell.textContent || cell.innerText;
+                rows[i].style.display = textValue.toLowerCase().indexOf(searchInput) > -1 ? '' : 'none';
+            }
+        }
+    }
+</script>
+
+</body>
+</html>
