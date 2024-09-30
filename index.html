@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Cây Trồng</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&display=swap">
+</head>
+<body>
+    <h1>Quản Lý Cây Trồng</h1>
+    <div class="plant-buttons">
+        <button class="plant-button" onclick="showInfo('tomato')">Cà Chua</button>
+        <button class="plant-button" onclick="showInfo('bellPepper')">Ớt Chuông</button>
+        <button class="plant-button" onclick="showInfo('strawberry')">Dâu</button>
+        <button class="plant-button" onclick="showInfo('grape')">Nho</button>
+        <button class="plant-button" onclick="openEditModal()">Chỉnh sửa</button>
+    </div>
+
+    <div class="info-box" id="info-box">
+        <button id="updateButton" onclick="toggleEdit()" style="float: right; margin: -10px -10px 10px 0; background-color: #28a745; color: white; border: none; padding: 5px 10px; border-radius: 5px;">Cập nhật</button>
+        <div class="info-item" id="info-date"><span class="info-title">Ngày tháng:</span> <span class="info-value">Chưa có dữ liệu</span> <input type="text" id="edit-date"></div>
+        <div class="info-item" id="info-variety"><span class="info-title">Giống:</span> <span class="info-value">Chưa có dữ liệu</span> <input type="text" id="edit-variety"></div>
+        <div class="info-item" id="info-area"><span class="info-title">Khu:</span> <span class="info-value">Chưa có dữ liệu</span> <input type="text" id="edit-area"></div>
+        <div class="info-item" id="info-plantCount"><span class="info-title">Số cây:</span> <span class="info-value">0</span> <input type="text" id="edit-plantCount"></div>
+        <div class="info-item" id="info-watering"><span class="info-title">Tưới cây:</span> <span class="info-value">Chưa có dữ liệu</span> <input type="text" id="edit-watering"></div>
+        <div class="info-item" id="info-moisture"><span class="info-title">Độ ẩm đất:</span> <span class="info-value">Chưa có dữ liệu</span> <input type="text" id="edit-moisture"></div>
+        <div class="info-item" id="info-temperature"><span class="info-title">Nhiệt độ nhà kính:</span> <span class="info-value">Chưa có dữ liệu</span> <input type="text" id="edit-temperature"></div>
+        <div class="info-item" id="info-tol"><span class="info-title">Tol:</span> <span class="info-value">0</span> <input type="text" id="edit-tol"></div>
+        <div class="info-item" id="info-cover"><span class="info-title">Mái che:</span> <span class="info-value">Chưa có dữ liệu</span> <input type="text" id="edit-cover"></div>
+        <div class="info-item" id="info-pests"><span class="info-title">Sâu, bệnh:</span> <span class="info-value">Chưa có dữ liệu</span> <input type="text" id="edit-pests"></div>
+        <div class="info-item" id="info-deadPlants"><span class="info-title">Số cây chết:</span> <span class="info-value">0</span> <input type="text" id="edit-deadPlants"></div>
+        <div class="info-item" id="info-fertilizer"><span class="info-title">Phân bón:</span> <span class="info-value">Chưa có dữ liệu</span> <input type="text" id="edit-fertilizer"></div>
+        <div class="info-item" id="info-biological"><span class="info-title">Thuốc sinh học:</span> <span class="info-value">Chưa có dữ liệu</span> <input type="text" id="edit-biological"></div>
+        <div class="info-item" id="info-height"><span class="info-title">Chiều cao cây:</span> <span class="info-value">Chưa có dữ liệu</span> <input type="text" id="edit-height"></div>
+        <div class="info-item" id="info-leaves"><span class="info-title">Số lá:</span> <span class="info-value">0</span> <input type="text" id="edit-leaves"></div>
+        <div class="info-item" id="info-fruitStatus"><span class="info-title">Tình trạng trái:</span> <span class="info-value">Chưa có dữ liệu</span> <input type="text" id="edit-fruitStatus"></div>
+        <div class="info-item" id="info-fruitSize"><span class="info-title">Kích thước trái:</span> <span class="info-value">Chưa có dữ liệu</span> <input type="text" id="edit-fruitSize"></div>
+        <div class="info-item" id="info-harvestDate"><span class="info-title">Ước tính ngày thu hoạch:</span> <span class="info-value">Chưa có dữ liệu</span> <input type="text" id="edit-harvestDate"></div>
+    </div>
+
+    <!-- Modal -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-left">
+                <h3>Chọn cây để xóa</h3>
+                <select id="cropToDelete">
+                    <option value="">-- Chọn cây --</option>
+                    <option value="Cà Chua">Cà Chua</option>
+                    <option value="Ớt Chuông">Ớt Chuông</option>
+                    <option value="Dâu">Dâu</option>
+                    <option value="Nho">Nho</option>
+                </select>
+                <button onclick="confirmDelete()">Xác nhận xóa</button>
+                <div id="message" class="message"></div>
+            </div>
+            <div class="modal-right">
+                <h3>Thêm cây mới</h3>
+                <input type="text" id="newCrop" placeholder="Nhập tên cây mới">
+                <button onclick="addNewCrop()">Thêm</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
