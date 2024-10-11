@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ thống Bài Tập</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: rgb(255, 255, 255);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .hidden {
+            display: none;
+        }
+        .exercise {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div id="login" class="form">
+        <h1>Đăng Nhập</h1>
+        <label for="username">Tên người dùng/Email:</label>
+        <input type="text" id="username"><br>
+        <label for="password">Mật khẩu:</label>
+        <input type="password" id="password"><br>
+        <button onclick="login()">Đăng Nhập</button>
+    </div>
+
+    <div id="dashboard" class="hidden">
+        <h2>Bảng Điều Khiển</h2>
+        <h3>Các bài tập:</h3>
+        <div class="exercise">
+            <h4>Bài Tập 1: Tính tổng hai số</h4>
+            <p>Mô tả: Viết chương trình tính tổng hai số.</p>
+            <p>Mức độ khó: Dễ</p>
+            <button onclick="selectExercise('Bài Tập 1')">Chọn Bài Tập</button>
+        </div>
+        <div class="exercise">
+            <h4>Bài Tập 2: Đảo ngược chuỗi</h4>
+            <p>Mô tả: Viết chương trình đảo ngược một chuỗi.</p>
+            <p>Mức độ khó: Trung bình</p>
+            <button onclick="selectExercise('Bài Tập 2')">Chọn Bài Tập</button>
+        </div>
+    </div>
+
+    <div id="codingArea" class="hidden">
+        <h2>Giao Diện Lập Trình</h2>
+        <h3 id="exerciseTitle"></h3>
+        <textarea id="codeEditor" rows="10" style="width: 100%;"></textarea><br>
+        <button onclick="runCode()">Chạy Mã</button>
+        <button onclick="submitCode()">Nộp Mã</button>
+        <div id="output" class="hidden"></div>
+    </div>
+</div>
+
+<script>
+    function login() {
+        document.getElementById('login').classList.add('hidden');
+        document.getElementById('dashboard').classList.remove('hidden');
+    }
+
+    function selectExercise(title) {
+        document.getElementById('exerciseTitle').innerText = title;
+        document.getElementById('dashboard').classList.add('hidden');
+        document.getElementById('codingArea').classList.remove('hidden');
+    }
+
+    function runCode() {
+        const outputDiv = document.getElementById('output');
+        outputDiv.innerText = "Kết quả chạy mã (chưa thực sự thực thi).";
+        outputDiv.classList.remove('hidden');
+    }
+
+    function submitCode() {
+        alert("Mã đã được nộp!");
+     
+    }
+</script>
+
+</body>
+</html>
