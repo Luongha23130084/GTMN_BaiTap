@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Môn Học</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Thêm đường dẫn đến file CSS -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        .navbar {
+            background-color: #0044cc;
+            padding: 15px;
+            color: white;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #0044cc;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input, 
+        .form-group textarea, 
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-group input:disabled {
+            background-color: #f0f0f0;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 15px;
+            color: white;
+            background-color: #0044cc;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .btn-danger {
+            background-color: #e74c3c;
+        }
+        .btn:hover {
+            opacity: 0.8;
+        }
+        .confirmation-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        .course-list {
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        .course-list th, .course-list td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+        .course-list th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <h2>Quản Lý Môn Học</h2>
+    </div>
+
+    <div class="container">
+        <h1>Thêm hoặc Chỉnh sửa Môn học</h1>
+        <form id="courseForm">
+            <div class="form-group">
+                <label for="course_id">Mã Môn Học:</label>
+                <input type="text" id="course_id" name="course_id" required maxlength="20"> <!-- Đã bật nhập cho Mã Môn Học -->
+            </div>
+            <div class="form-group">
+                <label for="course_name">Tên Môn Học:</label>
+                <input type="text" id="course_name" name="course_name" required maxlength="255">
+            </div>
+            <div class="form-group">
+                <label for="course_description">Mô Tả Môn Học:</label>
+                <textarea id="course_description" name="course_description" rows="4"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="created_by">Giáo Viên Phụ Trách:</label>
+                <select id="created_by" name="created_by">
+                    <option value="">Chọn Giáo Viên</option>
+                    <option value="1">Giáo viên 1</option>
+                    <option value="2">Giáo viên 2</option>
+                    <!-- Thêm các giáo viên khác ở đây -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="created_at">Thời Gian Tạo:</label>
+                <input type="text" id="created_at" name="created_at" value="" disabled>
+            </div>
+            <div class="form-group">
+                <label for="updated_at">Thời Gian Cập Nhật:</label>
+                <input type="text" id="updated_at" name="updated_at" value="" disabled>
+            </div>
+            <button type="submit" class="btn">Lưu Môn Học</button>
+            <button type="button" class="btn btn-danger" onclick="showConfirmation()">Xóa Môn Học</button>
+            <button type="button" class="btn" onclick="addCourse()">Thêm Môn Học</button> <!-- Nút Thêm Môn Học -->
+        </form>
+
+        <table class="course-list" id="courseTable">
+            <thead>
+                <tr>
+                    <th>Mã Môn Học</th>
+                    <th>Tên Môn Học</th>
+                    <th>Mô Tả</th>
+                    <th>Giáo Viên</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Danh sách các môn học sẽ được thêm vào đây -->
+            </tbody>
+        </table>
+    </div>
+
+    <div class="confirmation-modal" id="confirmationModal">
+        <div class="modal-content">
+            <h3>Bạn có chắc chắn muốn xóa môn học này không?</h3>
+            <button class="btn" onclick="confirmDelete()">Đồng Ý</button>
+            <button class="btn" onclick="hideConfirmation()">Hủy Bỏ</button>
+        </div>
+    </div>
+
+    <script>
+        let courses = [
+            {
+                id: '214362',
+                name: 'Giao tiếp người máy',
+                description: '',
+                teacher: '1' // Assuming 'Giáo viên 1' is the teacher for this course
+            }
+        ]; // Mảng lưu trữ các môn học
+
+        function showConfirmation() {
+            document.getElementById('confirmationModal').style.display = 'flex';
+        }
+
+        function hideConfirmation() {
+            document.getElementById('confirmationModal').style.display = 'none';
+        }
+
+        function confirmDelete() {
+            // Thực hiện xóa môn học ở đây
+            alert('Môn học đã được xóa thành công.');
+            hideConfirmation();
+        }
+
+        function addCourse() {
+            const courseId = document.getElementById('course_id').value; // Lấy Mã Môn Học từ form
+            const courseName = document.getElementById('course_name').value;
+            const courseDescription = document.getElementById('course_description').value;
+            const createdBy = document.getElementById('created_by').value;
+
+            // Kiểm tra xem các trường có hợp lệ không
+            if (!courseId || !courseName || !createdBy) {
+                alert('Vui lòng điền đầy đủ thông tin.');
+                return;
+            }
+
+            // Tạo một đối tượng môn học
+            const newCourse = {
+                id: courseId, // Sử dụng Mã Môn Học từ input
+                name: courseName,
+                description: courseDescription,
+                teacher: createdBy
+            };
+
+            // Thêm môn học vào mảng
+            courses.push(newCourse);
+            displayCourses();
+            clearForm();
+        }
+
+        function displayCourses() {
+            const courseTableBody = document.getElementById('courseTable').querySelector('tbody');
+            courseTableBody.innerHTML = ''; // Xóa nội dung cũ
+
+            courses.forEach(course => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${course.id}</td>
+                    <td>${course.name}</td>
+                    <td>${course.description}</td>
+                    <td>${course.teacher}</td>
+                `;
+                courseTableBody.appendChild(row);
+            });
+        }
+
+        function clearForm() {
+            document.getElementById('course_id').value = ''; // Xóa Mã Môn Học
+            document.getElementById('course_name').value = '';
+            document.getElementById('course_description').value = '';
+            document.getElementById('created_by').value = '';
+        }
+
+        // Hiển thị các môn học khi trang được tải
+        displayCourses();
+
+        // Ngăn chặn gửi form nếu không hợp lệ
+        document.getElementById('courseForm').onsubmit = function(event) {
+            if (!this.checkValidity()) {
+                event.preventDefault(); // Ngăn chặn gửi form
+                alert('Vui lòng điền tất cả các trường bắt buộc.');
+            }
+        };
+    </script>
+
+</body>
+</html>
