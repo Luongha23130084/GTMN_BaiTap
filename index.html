@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Cá Nhân</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #d4fc79, #96e6a1);
+            color: #333;
+        }
+        header {
+            background-color: #008080;
+            color: white;
+            padding: 10px 10px; /* Reduced padding */
+            text-align: center;
+        }
+        header h1 {
+            font-size: 24px; /* Smaller font size for the header */
+            margin: 0;
+        }
+        header p {
+            font-size: 16px; /* Smaller font size for the subheading */
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background: #333;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 15px 20px;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        nav a:hover {
+            background: #008080;
+        }
+        section {
+            padding: 20px;
+            max-width: 900px;
+            margin: 20px auto;
+            display: none; /* Hide sections initially */
+        }
+        .about, .projects, .contact {
+            margin-bottom: 40px;
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #004d40;
+            color: white;
+            font-size: 14px;
+            position: relative;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+        }
+        footer p {
+            margin: 0;
+            padding: 5px 0;
+        }
+        footer a {
+            color: #80cbc4;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+        .about img, .projects img {
+            max-width: 150px;
+            height: auto;
+            border-radius: 50%;
+            display: block;
+            margin: 10px auto;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #008080;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 15px;
+            text-align: center;
+        }
+        .button:hover {
+            background: #005f5f;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        ul li {
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+        ul li:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to My Website</h1>
+        <p>Explore my journey and projects</p>
+    </header>
+    <nav>
+        <a href="javascript:void(0)" onclick="showSection('about')">About</a>
+        <a href="javascript:void(0)" onclick="showSection('projects')">Projects</a>
+        <a href="javascript:void(0)" onclick="showSection('contact')">Contact</a>
+        <a href="https://github.com/Luongha23130084/GTMN_BaiTap">GitHub</a>
+    </nav>
+
+    <section id="about" class="about">
+        <h2>Giới Thiệu</h2>
+        <img src="https://hoanghamobile.com/tin-tuc/wp-content/webp-express/webp-images/uploads/2023/10/hinh-ve-cute-5.jpg.webp" alt="Profile">
+        <p>Tôi là một Kỹ sư, đến từ ĐH Nông Lâm. Tôi thích thiết kế và sáng tạo các sản phẩm công nghệ độc đáo.</p>
+        <h3>Kinh Nghiệm</h3>
+        <ul>
+            <li><a href="CV1.html">CV 1</a></li>
+            <li><a href="lab1.html">Lab 1</a></li>
+            <li><a href="lab2.html">Lab 2</a></li>
+            <li><a href="lab3.html">Lab 3</a></li>
+            <li><a href="lab4.html">Lab 4</a></li>
+            <li><a href="lab5/lab5.html">Lab 5</a></li>
+            <li><a href="lab6/lab6.html">Lab 6</a></li>
+        </ul>
+    </section>
+
+    <section id="projects" class="projects">
+            <li><a href="https://thi2301.github.io/hci2025group05/">Project 1: Web nhóm</a></li>
+            <li><a href="https://thi2301.github.io/hci2025group05/Project-group/project-group.html">Project 2: Web project</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </ul>
+    </section>
+
+    <section id="contact" class="contact">
+        <h2>Contact</h2>
+        <p>Feel free to get in touch with me!</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 <a href="#">MY HOME</a>. All rights reserved.</p>
+        <p>Design by <a href="#">Your Name</a></p>
+    </footer>
+
+    <script>
+        // Function to show the selected section and hide the others
+        function showSection(sectionId) {
+            // Hide all sections
+            var sections = document.querySelectorAll('section');
+            sections.forEach(function(section) {
+                section.style.display = 'none';
+            });
+
+            // Show the selected section
+            var selectedSection = document.getElementById(sectionId);
+            if (selectedSection) {
+                selectedSection.style.display = 'block';
+            }
+        }
+
+        // Show the "About" section by default
+        showSection('about');
+    </script>
+</body>
+</html>
