@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Focused on Your Goals</title>
+    <!-- Include Chart.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .container {
+            display: flex;
+            max-width: 1200px;
+            width: 100%;
+            gap: 20px;
+        }
+        
+        .left-column, .right-column {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .left-column {
+            flex: 1;
+        }
+        
+        .right-column {
+            flex: 1.5;
+            padding: 20px 30px;
+        }
+
+        .section {
+            margin-bottom: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+        }
+        
+        .highlighted {
+            border-color: #a855f7;
+        }
+
+        .icon {
+            font-size: 24px;
+            color: #333;
+        }
+
+        .text-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .description {
+            color: #666;
+        }
+        
+        .enterprise {
+            color: #a855f7;
+            font-size: 0.9em;
+            font-weight: bold;
+            border: 1px solid #a855f7;
+            padding: 2px 5px;
+            border-radius: 3px;
+            margin-right: 5px;
+        }
+
+        .cta {
+            color: #a855f7;
+            font-weight: bold;
+            text-decoration: none;
+            margin-top: 10px;
+        }
+        
+        .score-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .score-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .chart {
+            position: relative;
+            width: 100%;
+            height: auto;
+            margin: 20px 0;
+        }
+
+        .percentile {
+            position: absolute;
+            right: 10px;
+            bottom: -15px;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .performance-summary {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        .answers-section {
+            margin-top: 20px;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+
+        .answer {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        
+        .correct {
+            color: #22c55e;
+            font-weight: bold;
+        }
+        
+        .incorrect {
+            color: #ef4444;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Left Column -->
+        <div class="left-column">
+            <h1>Learning focused on your goals</h1>
+            <div class="section highlighted">
+                <div class="icon">⭐</div>
+                <div class="text-content">
+                    <div class="title">Hands-on training</div>
+                    <div class="description">Upskill effectively with AI-powered coding exercises, practice tests, and quizzes.</div>
+                </div>
+            </div>
+            <div class="section">
+                <div class="icon">📜</div>
+                <div class="text-content">
+                    <div class="title">Certification prep</div>
+                    <div class="description">Prep for industry-recognized certifications by solving real-world challenges and earn badges along the way.</div>
+                </div>
+            </div>
+            <div class="section">
+                <div class="icon">📊</div>
+                <div class="text-content">
+                    <div class="title">Insights and analytics <span class="enterprise">Enterprise Plan</span></div>
+                    <div class="description">Fast-track goals with advanced insights plus a dedicated customer success team to help drive effective learning.</div>
+                    <a href="#" class="cta">Find out more →</a>
+                </div>
+            </div>
+            <div class="section">
+                <div class="icon">⚙️</div>
+                <div class="text-content">
+                    <div class="title">Customizable content <span class="enterprise">Enterprise Plan</span></div>
+                    <div class="description">Create tailored learning paths for team and organization goals and even host your own content and resources.</div>
+                    <a href="#" class="cta">Find out more →</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Right Column -->
+        <div class="right-column">
+            <div class="score-section">
+                <div class="score-title">Your score: 159</div>
+                <div class="chart">
+                    <!-- Add a canvas element for the chart -->
+                    <canvas id="scoreChart" width="400" height="200"></canvas>
+                    <div class="percentile">88th Percentile</div>
+                </div>
+                <div class="performance-summary">Your performance was better than 88% of learners who have completed this assessment.</div>
+            </div>
+            
+            <div class="answers-section">
+                <h2>Your answers</h2>
+                <div class="answer">
+                    <div><span class="correct">Correct</span> - Question 1: Which of the following scenarios will benefit most from a managed Kubernetes service?</div>
+                </div>
+                <div class="answer">
+                    <div><span class="correct">Correct</span> - Question 2: You containerized a web application, and one of the containers is running the database engine. Which of the following strategies is best to persist the data?</div>
+                </div>
+                <!-- Add more questions as needed -->
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript to Render the Chart -->
+    <script>
+        const ctx = document.getElementById('scoreChart').getContext('2d');
+        
+        const scoreChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Limited', 'Developing', 'Established', 'Superior'],
+                datasets: [{
+                    label: 'Score',
+                    data: [40, 70, 120, 159], // Example scores; adjust as needed
+                    borderColor: '#a855f7',
+                    backgroundColor: 'rgba(168, 85, 247, 0.1)',
+                    fill: true,
+                    tension: 0.4,
+                    pointBackgroundColor: '#a855f7',
+                    pointBorderColor: '#a855f7',
+                    pointRadius: 5,
+                    pointHoverRadius: 7,
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Score Categories'
+                        },
+                    },
+                    y: {
+                        beginAtZero: true,
+                        max: 200,
+                        title: {
+                            display: true,
+                            text: 'Score'
+                        },
+                        ticks: {
+                            stepSize: 50
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        enabled: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
